@@ -25,16 +25,16 @@ NOTE:
 }
 
 check_packages() {
-
-if [ $(grep -i debian /etc/*-release | wc -l) -gt 0 ] ; then
-   if [ ! -f /usr/bin/docker ] ; then
-      sudo apt-get -y install docker.io python-pip
-   fi
-
-   if [ ! -f /usr/local/bin/docker-compose ] ; then
-      sudo pip install docker-compose
-   fi
-fi
+echo ""
+# if [ $(grep -i debian /etc/*-release | wc -l) -gt 0 ] ; then
+#    if [ ! -f /usr/bin/docker ] ; then
+#       sudo apt-get -y install docker.io python-pip
+#    fi
+#
+#    if [ ! -f /usr/local/bin/docker-compose ] ; then
+#       sudo pip install docker-compose
+#    fi
+# fi
 }
 
 
@@ -55,7 +55,8 @@ fi
 genpw > $DEST_DIR/password
 ./config/utils/keygen.sh $DEST_DIR
 
-local SPEC_FILE=$(mktemp -p $DEST_DIR spec.XXXXXXXXX)
+# local SPEC_FILE=$(mktemp -d $DEST_DIR spec.XXXXXXXXX)
+local SPEC_FILE=.temp.spec.json
 sed "s/CHAIN_NAME/$CHAIN_NAME/g" config/spec/example.spec > $SPEC_FILE
 parity --chain $SPEC_FILE --keys-path $DEST_DIR/ account new --password $DEST_DIR/password  > $DEST_DIR/address.txt
 rm $SPEC_FILE
@@ -289,17 +290,17 @@ fi
 
 # Get a copy of the parity binary, overwriting if release is set
 
-if [ ! -f /usr/bin/parity ] || [ -n "$PARITY_RELEASE" ] ; then
-
-        if [ -z "$PARITY_RELEASE" ] ; then
-                echo "NO custom parity build set, downloading beta"
-                bash <(curl https://get.parity.io -Lk)
-        else
-                echo "Custom parity build set: $PARITY_RELEASE"
-                curl -o parity-download.sh https://get.parity.io -Lk
-                bash parity-download.sh -r $PARITY_RELEASE
-        fi
-fi
+# if [ ! -f /usr/bin/parity ] || [ -n "$PARITY_RELEASE" ] ; then
+#
+#         if [ -z "$PARITY_RELEASE" ] ; then
+#                 echo "NO custom parity build set, downloading beta"
+#                 bash <(curl https://get.parity.io -Lk)
+#         else
+#                 echo "Custom parity build set: $PARITY_RELEASE"
+#                 curl -o parity-download.sh https://get.parity.io -Lk
+#                 bash parity-download.sh -r $PARITY_RELEASE
+#         fi
+# fi
 
 
 mkdir -p deployment/chain
