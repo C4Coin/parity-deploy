@@ -186,13 +186,23 @@ create_node_config_instantseal() {
  }
 
 expose_container() {
-
-  sed -i "s@container_name: $1@&\n       ports:\n       - 8080:8080\n       - 8180:8180\n       - 8545:8545\n       - 8546:8546\n       - 30303:30303@g" docker-compose.yml
-
+  # ports:
+  # - 8080:8080
+  # - 8180:8180
+  # - 8545:8545
+  # - 8546:8546
+  # - 30303:30303
+  # depends_on:
+  # - host2
+  # - host3
+  # - host4
+  # - host5
+  echo "compare with parity poa and make it work, missing gateway / client with a depends on"
+  # sed -e "s@container_name: $1@&\n   \/\n\    ports:\n       - 8080:8080\n       - 8180:8180\n       - 8545:8545\n       - 8546:8546\n       - 30303:30303@g" docker-compose.yml
+  echo "test"
 }
 
 select_exposed_container() {
-
   if [ -n "$EXPOSE_CLIENT" ] ; then
     expose_container $EXPOSE_CLIENT
   else
@@ -302,7 +312,7 @@ fi
 #         fi
 # fi
 
-
+./clean.sh
 mkdir -p deployment/chain
 check_packages
 
