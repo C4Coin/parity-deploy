@@ -198,7 +198,7 @@ expose_container() {
   # - host4
   # - host5
   echo "compare with parity poa and make it work, missing gateway / client with a depends on"
-  # sed -e "s@container_name: $1@&\n   \/\n\    ports:\n       - 8080:8080\n       - 8180:8180\n       - 8545:8545\n       - 8546:8546\n       - 30303:30303@g" docker-compose.yml
+  gsed -i "s@container_name: $1@&\n       ports:\n       - 8080:8080\n       - 8180:8180\n       - 8545:8545\n       - 8546:8546\n       - 30303:30303@g" docker-compose.yml
   echo "test"
 }
 
